@@ -14,14 +14,14 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: context.mediaQuery.padding.top,
+                height: context.mediaQuery.padding.top + 4,
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: SizedBox(
                   child: SvgPicture.asset('assets/images/LoginImage.svg'),
-                  height: 200,
                 ),
+                height: 200,
               ),
               SizedBox(
                 height: 16,
