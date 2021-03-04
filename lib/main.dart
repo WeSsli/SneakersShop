@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/screens/login_screen.dart';
+import 'package:sneakers/screens/register_screen.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:sneakers/utils/precache_image.dart';
 import 'package:sneakers/utils/theme.dart';
@@ -13,8 +14,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      
     ),
   );
   runApp(MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       
       theme: AppTheme.light,
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        home: RegisterScreen(),
         builder: (context, widget) {
           PrecacheImages().init(context);
           return ResponsiveWrapper.builder(
