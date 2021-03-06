@@ -7,9 +7,7 @@ import 'package:sneakers/widgets/text_input.dart';
 
 import 'controllers/log_in_controller.dart';
 
-class LoginScreen extends StatelessWidget {
-
-  final signinController = Get.put(SigninController());
+class LoginScreen extends GetView<SigninController> {
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "E-mail",
-                textEditingController: signinController.emailController,
+                textEditingController: controller.emailController,
                 type: TextInputType.emailAddress,
               ),
               SizedBox(
@@ -52,7 +50,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "Hasło",
-                textEditingController: signinController.passwordController,
+                textEditingController: controller.passwordController,
                 obscure: true,
               ),
               SizedBox(
@@ -84,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                 color: Colors.transparent,
                 padding: EdgeInsets.zero,
                 onPressed: () {
-                  signinController.signIn();
+                  controller.signIn();
                 },
               ),
               SizedBox(

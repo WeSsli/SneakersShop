@@ -5,9 +5,9 @@ import 'package:sneakers/widgets/text_input.dart';
 
 import 'controllers/register_controller.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends GetView<SignupController> {
 
-  final signupController = Get.put(SignupController());
+  
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "E-mail",
-                textEditingController: signupController.emailController,
+                textEditingController: controller.emailController,
                 type: TextInputType.emailAddress,
               ),
               SizedBox(
@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "Hasło",
-                textEditingController: signupController.passwordController,
+                textEditingController: controller.passwordController,
                 obscure: true,
               ),
               SizedBox(
@@ -50,28 +50,28 @@ class RegisterScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "Imię",
-                textEditingController: signupController.nameController,
+                textEditingController: controller.nameController,
               ),
               SizedBox(
                 height: 16,
               ),
               TextInput(
                 label: "Nazwisko",
-                textEditingController: signupController.surnameController,
+                textEditingController: controller.surnameController,
               ),
               SizedBox(
                 height: 16,
               ),
               TextInput(
                 label: "Adres",
-                textEditingController: signupController.addressController,
+                textEditingController: controller.addressController,
               ),
               SizedBox(
                 height: 16,
               ),
               TextInput(
                 label: "Miejscowość",
-                textEditingController: signupController.cityController,
+                textEditingController: controller.cityController,
               ),
               SizedBox(
                 height: 48,
@@ -102,7 +102,7 @@ class RegisterScreen extends StatelessWidget {
                 color: Colors.transparent,
                 padding: EdgeInsets.zero,
                 onPressed: () {
-                  signupController.signUp();
+                 controller.signUp();
                 },
               ),
               SizedBox(
