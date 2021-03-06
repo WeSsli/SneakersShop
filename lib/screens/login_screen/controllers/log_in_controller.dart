@@ -28,9 +28,11 @@ class SigninController extends GetxController {
     });
   }
 
-  void signIn() {
+  void signIn() async {
     if (!emailError && !passwordError) {
-      c.logIn(emailController.text, passwordController.text);
+      await c.logIn(emailController.text, passwordController.text);
+      emailController.clear();
+      passwordController.clear();
     }
   }
 }

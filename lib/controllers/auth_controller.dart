@@ -6,17 +6,9 @@ import 'package:sneakers/services/database.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  var _firebaseUser = Rx<User>();
-  User get user => _firebaseUser.value;
 
-  @override
-  void onInit() {
-    super.onInit();
-    _firebaseUser.bindStream(_auth.authStateChanges());
-  }
-
-  void createUser(String name, String email, String password, String surname,
-      String address, String city) async {
+  Future<void> createUser(String name, String email, String password,
+      String surname, String address, String city) async {
     try {
       //Create user in auth
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
@@ -37,7 +29,7 @@ class AuthController extends GetxController {
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
       } else {
-        throw("Nie dodano użytkownika do bazy");
+        throw ("Nie dodano użytkownika do bazy");
       }
     } catch (e) {
       Get.snackbar(
@@ -48,7 +40,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void logIn(String email, String password) async {
+  Future<void> logIn(String email, String password) async {
     try {
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);

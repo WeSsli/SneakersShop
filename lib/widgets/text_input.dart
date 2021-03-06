@@ -45,6 +45,8 @@ class TextInput extends StatelessWidget {
               controller: textEditingController,
               obscureText: obscure,
               keyboardType: type,
+              //TODO dodac jako parametr, ostatni jako done
+              textInputAction: TextInputAction.next,
             ),
           ),
         ],

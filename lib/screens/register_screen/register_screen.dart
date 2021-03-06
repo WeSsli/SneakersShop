@@ -7,8 +7,6 @@ import 'controllers/register_controller.dart';
 
 class RegisterScreen extends GetView<SignupController> {
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

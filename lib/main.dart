@@ -4,8 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/bindings/auth_binding.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:sneakers/utils/precache_image.dart';
-import 'package:sneakers/utils/root.dart';
+import 'package:sneakers/screens/home_screen/home_screen.dart';
+import 'package:sneakers/screens/login_screen/controllers/log_in_controller.dart';
+import 'package:sneakers/screens/login_screen/login_screen.dart';
+import 'package:sneakers/screens/register_screen/controllers/register_controller.dart';
+import 'package:sneakers/screens/register_screen/register_screen.dart';
+import 'package:sneakers/screens/splash_screen/splash_screen.dart';
 import 'package:sneakers/utils/theme.dart';
 
 void main() async {
@@ -14,7 +18,6 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.transparent,
-      
     ),
   );
   runApp(MyApp());
@@ -24,12 +27,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: AuthBinding(),
-      theme: AppTheme.light,
+        initialBinding: AuthBinding(),
+        theme: AppTheme.light,
         debugShowCheckedModeBanner: false,
-        home: Root(),
         builder: (context, widget) {
-          PrecacheImages().init(context);
           return ResponsiveWrapper.builder(
             BouncingScrollWrapper.builder(context, widget),
             maxWidth: 1200,
@@ -43,6 +44,30 @@ class MyApp extends StatelessWidget {
               ResponsiveBreakpoint.autoScale(2460, name: "4K"),
             ],
           );
-        });
+        },
+        getPages: [
+          //TODO zrobic osobne pliki do bindings
+          GetPage(
+            name: '/',
+            page: () => SplashScreen(),
+        
+          ),
+          GetPage(
+            name: 'login',
+            page: () => LoginScreen(),
+            binding: BindingsBuilder.put(
+                () => Get.put<SigninController>(SigninController())),
+          ),
+          GetPage(
+            name: 'register',
+            page: () => RegisterScreen(),
+            binding: BindingsBuilder.put(
+                () => Get.put<SignupController>(SignupController())),
+          ),
+          GetPage(
+            name: 'home',
+            page: () => HomeScreen(),
+          ),
+        ]);
   }
 }

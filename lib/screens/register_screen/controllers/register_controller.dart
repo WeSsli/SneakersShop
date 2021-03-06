@@ -64,14 +64,14 @@ class SignupController extends GetxController {
     });
   }
 
-  void signUp() {
+  void signUp() async {
     if (!emailError &&
         !passwordError &&
         !nameError &&
         !surnameError &&
         !addressError &&
         !cityError) {
-      Get.find<AuthController>().createUser(
+      await Get.find<AuthController>().createUser(
         nameController.text,
         emailController.text,
         passwordController.text,
@@ -79,6 +79,12 @@ class SignupController extends GetxController {
         addressController.text,
         cityController.text,
       );
+      emailController.clear();
+      passwordController.clear();
+      nameController.clear();
+      surnameController.clear();
+      addressController.clear();
+      cityController.clear();
     }
   }
 }
