@@ -4,7 +4,7 @@ import 'package:sneakers/controllers/auth_controller.dart';
 import 'package:sneakers/controllers/user_controller.dart';
 import 'package:sneakers/screens/splash_screen/controllers/splash_controller.dart';
 
-class AuthBinding extends Bindings {
+class InitBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<AuthController>(AuthController());

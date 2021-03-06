@@ -7,6 +7,7 @@ class TextInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool obscure;
   final TextInputType type;
+  final TextInputAction action;
 
   const TextInput({
     Key key,
@@ -14,6 +15,7 @@ class TextInput extends StatelessWidget {
     @required this.textEditingController,
     this.obscure = false,
     this.type = TextInputType.text,
+    this.action = TextInputAction.next,
   }) : super(key: key);
 
   @override
@@ -45,8 +47,7 @@ class TextInput extends StatelessWidget {
               controller: textEditingController,
               obscureText: obscure,
               keyboardType: type,
-              //TODO dodac jako parametr, ostatni jako done
-              textInputAction: TextInputAction.next,
+              textInputAction: action,
             ),
           ),
         ],

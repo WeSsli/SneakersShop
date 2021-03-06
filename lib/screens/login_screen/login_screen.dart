@@ -8,7 +8,6 @@ import 'package:sneakers/widgets/text_input.dart';
 import 'controllers/log_in_controller.dart';
 
 class LoginScreen extends GetView<SigninController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,77 +51,82 @@ class LoginScreen extends GetView<SigninController> {
                 label: "Hasło",
                 textEditingController: controller.passwordController,
                 obscure: true,
+                action: TextInputAction.done,
               ),
               SizedBox(
                 height: 64,
               ),
-              CupertinoButton(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
-                  width: context.mediaQuery.size.width,
-                  decoration: BoxDecoration(
-                    color: context.theme.primaryColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 22),
-                    child: Center(
-                      child: Text(
-                        "Zaloguj",
-                        style: context.textTheme.bodyText1.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                minSize: 0,
-                color: Colors.transparent,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  controller.signIn();
-                },
-              ),
+              _signinButton(context),
               SizedBox(
                 height: 28,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Nie masz konta?",
-                    style: context.textTheme.bodyText1.copyWith(
-                      fontSize: 16,
-                      color: context.theme.primaryColor,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  CupertinoButton(
-                    child: Text(
-                      "Zarejestruj się",
-                      style: context.textTheme.bodyText1.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: context.theme.primaryColor,
-                      ),
-                    ),
-                    onPressed: () {
-                      Get.toNamed("register");
-                    },
-                    padding: EdgeInsets.zero,
-                    minSize: 0,
-                    color: Colors.transparent,
-                  ),
-                ],
-              ),
+              _footer(context),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _signinButton(BuildContext context) => CupertinoButton(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          width: context.mediaQuery.size.width,
+          decoration: BoxDecoration(
+            color: context.theme.primaryColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 22),
+            child: Center(
+              child: Text(
+                "Zaloguj",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        minSize: 0,
+        color: Colors.transparent,
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          controller.signIn();
+        },
+      );
+
+  Widget _footer(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Nie masz konta?",
+            style: context.textTheme.bodyText1.copyWith(
+              fontSize: 16,
+              color: context.theme.primaryColor,
+            ),
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          CupertinoButton(
+            child: Text(
+              "Zarejestruj się",
+              style: context.textTheme.bodyText1.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                color: context.theme.primaryColor,
+              ),
+            ),
+            onPressed: () {
+              Get.toNamed("register");
+            },
+            padding: EdgeInsets.zero,
+            minSize: 0,
+            color: Colors.transparent,
+          ),
+        ],
+      );
 }

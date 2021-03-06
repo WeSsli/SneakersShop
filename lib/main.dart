@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sneakers/bindings/auth_binding.dart';
+import 'package:sneakers/bindings/init_binding.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:sneakers/bindings/login_screen_binding.dart';
+import 'package:sneakers/bindings/register_screen_binding.dart';
 import 'package:sneakers/screens/home_screen/home_screen.dart';
 import 'package:sneakers/screens/login_screen/controllers/log_in_controller.dart';
 import 'package:sneakers/screens/login_screen/login_screen.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        initialBinding: AuthBinding(),
+        initialBinding: InitBinding(),
         theme: AppTheme.light,
         debugShowCheckedModeBanner: false,
         builder: (context, widget) {
@@ -46,7 +48,6 @@ class MyApp extends StatelessWidget {
           );
         },
         getPages: [
-          //TODO zrobic osobne pliki do bindings
           GetPage(
             name: '/',
             page: () => SplashScreen(),
@@ -55,14 +56,12 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: 'login',
             page: () => LoginScreen(),
-            binding: BindingsBuilder.put(
-                () => Get.put<SigninController>(SigninController())),
+            binding: LoginBinding(),
           ),
           GetPage(
             name: 'register',
             page: () => RegisterScreen(),
-            binding: BindingsBuilder.put(
-                () => Get.put<SignupController>(SignupController())),
+            binding: RegisterBinding(),
           ),
           GetPage(
             name: 'home',

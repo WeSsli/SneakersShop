@@ -5,13 +5,7 @@ import 'package:sneakers/controllers/user_controller.dart';
 import 'package:sneakers/services/database.dart';
 
 class SplashController extends GetxController {
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
   
-
   void init() {
     Get.find<FirebaseAuth>().authStateChanges().listen((event) async {
       if (event != null) {

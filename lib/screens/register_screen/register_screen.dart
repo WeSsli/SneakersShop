@@ -6,7 +6,6 @@ import 'package:sneakers/widgets/text_input.dart';
 import 'controllers/register_controller.dart';
 
 class RegisterScreen extends GetView<SignupController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,80 +69,85 @@ class RegisterScreen extends GetView<SignupController> {
               TextInput(
                 label: "Miejscowość",
                 textEditingController: controller.cityController,
+                action: TextInputAction.done,
               ),
               SizedBox(
                 height: 48,
               ),
-              CupertinoButton(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
-                  width: context.mediaQuery.size.width,
-                  decoration: BoxDecoration(
-                    color: context.theme.primaryColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 22),
-                    child: Center(
-                      child: Text(
-                        "Zarejestruj",
-                        style: context.textTheme.bodyText1.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                minSize: 0,
-                color: Colors.transparent,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                 controller.signUp();
-                },
-              ),
+              _signupButton(context),
               SizedBox(
                 height: 28,
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 28),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Masz już konto?",
-                      style: context.textTheme.bodyText1.copyWith(
-                        fontSize: 16,
-                        color: context.theme.primaryColor,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    CupertinoButton(
-                      child: Text(
-                        "Zaloguj się",
-                        style: context.textTheme.bodyText1.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                          color: context.theme.primaryColor,
-                        ),
-                      ),
-                      onPressed: () {
-                        Get.back();
-                      },
-                      padding: EdgeInsets.zero,
-                      minSize: 0,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
+              _footer(context),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _signupButton(BuildContext context) => CupertinoButton(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          width: context.mediaQuery.size.width,
+          decoration: BoxDecoration(
+            color: context.theme.primaryColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 22),
+            child: Center(
+              child: Text(
+                "Zarejestruj",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        minSize: 0,
+        color: Colors.transparent,
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          controller.signUp();
+        },
+      );
+
+  Widget _footer(BuildContext context) => Container(
+        margin: EdgeInsets.only(bottom: 28),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Masz już konto?",
+              style: context.textTheme.bodyText1.copyWith(
+                fontSize: 16,
+                color: context.theme.primaryColor,
+              ),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            CupertinoButton(
+              child: Text(
+                "Zaloguj się",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: context.theme.primaryColor,
+                ),
+              ),
+              onPressed: () {
+                Get.back();
+              },
+              padding: EdgeInsets.zero,
+              minSize: 0,
+              color: Colors.transparent,
+            ),
+          ],
+        ),
+      );
 }
