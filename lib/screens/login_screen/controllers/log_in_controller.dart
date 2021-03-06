@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:sneakers/controllers/auth_controller.dart';
 
 class SigninController extends GetxController {
-  final AuthController c = Get.find();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final AuthController c = Get.find<AuthController>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool emailError = false;
   bool passwordError = false;

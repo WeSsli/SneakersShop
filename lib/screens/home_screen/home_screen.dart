@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sneakers/controllers/auth_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  final AuthController c = Get.find();
+  final AuthController c = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Container(

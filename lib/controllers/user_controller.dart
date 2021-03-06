@@ -3,7 +3,7 @@ import 'package:sneakers/models/user.dart';
 
 
 class UserController extends GetxController {
-  var _userModel = UserModel().obs;
+  Rx<UserModel> _userModel = UserModel().obs;
 
   UserModel get user => _userModel.value;
   set user(UserModel user) => this._userModel.value = user;

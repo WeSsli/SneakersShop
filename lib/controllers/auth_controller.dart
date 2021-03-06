@@ -36,7 +36,9 @@ class AuthController extends GetxController {
       //Create user in firestore
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
-      } 
+      } else {
+        throw("Nie dodano użytkownika do bazy");
+      }
     } catch (e) {
       Get.snackbar(
         "Error creating account",

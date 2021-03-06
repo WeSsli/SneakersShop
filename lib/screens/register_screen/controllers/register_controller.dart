@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:sneakers/controllers/auth_controller.dart';
 
 class SignupController extends GetxController {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final nameController = TextEditingController();
-  final surnameController = TextEditingController();
-  final addressController = TextEditingController();
-  final cityController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
 
   bool emailError = false;
   bool passwordError = false;
