@@ -2,9 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:sneakers/screens/register_screen/register_screen.dart';
 import 'package:sneakers/widgets/text_input.dart';
 
+import 'controllers/log_in_controller.dart';
+
 class LoginScreen extends StatelessWidget {
+
+  final signinController = Get.put(SigninController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "E-mail",
-                textEditingController: TextEditingController(),
+                textEditingController: signinController.emailController,
                 type: TextInputType.emailAddress,
               ),
               SizedBox(
@@ -46,7 +52,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextInput(
                 label: "Hasło",
-                textEditingController: TextEditingController(),
+                textEditingController: signinController.passwordController,
                 obscure: true,
               ),
               SizedBox(
@@ -77,7 +83,9 @@ class LoginScreen extends StatelessWidget {
                 minSize: 0,
                 color: Colors.transparent,
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  signinController.signIn();
+                },
               ),
               SizedBox(
                 height: 28,
@@ -104,7 +112,9 @@ class LoginScreen extends StatelessWidget {
                         color: context.theme.primaryColor,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => RegisterScreen());
+                    },
                     padding: EdgeInsets.zero,
                     minSize: 0,
                     color: Colors.transparent,

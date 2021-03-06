@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sneakers/screens/login_screen.dart';
-import 'package:sneakers/screens/register_screen.dart';
+import 'package:sneakers/bindings/auth_binding.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:sneakers/utils/precache_image.dart';
+import 'package:sneakers/utils/root.dart';
 import 'package:sneakers/utils/theme.dart';
 
 void main() async {
@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      
+      initialBinding: AuthBinding(),
       theme: AppTheme.light,
         debugShowCheckedModeBanner: false,
-        home: RegisterScreen(),
+        home: Root(),
         builder: (context, widget) {
           PrecacheImages().init(context);
           return ResponsiveWrapper.builder(

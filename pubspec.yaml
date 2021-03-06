@@ -33,6 +33,7 @@ dependencies:
   flutter_svg:
   google_fonts: ^1.1.2
   responsive_framework: ^0.0.14
+  cloud_firestore:
 
 
 dev_dependencies:
