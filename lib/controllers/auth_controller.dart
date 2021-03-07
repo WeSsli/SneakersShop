@@ -7,6 +7,17 @@ import 'package:sneakers/services/database.dart';
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  void init() {
+    Get.find<FirebaseAuth>().authStateChanges().listen((event) async {
+      if (event != null) {
+        Get.find<UserController>().user = await Database().getUser(event.uid);
+        Get.offNamed("home");
+      } else {
+        Get.offNamed("login");
+      }
+    });
+  }
+
   Future<void> createUser(String name, String email, String password,
       String surname, String address, String city) async {
     try {

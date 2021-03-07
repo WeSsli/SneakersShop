@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:sneakers/screens/splash_screen/controllers/splash_controller.dart';
+import 'package:sneakers/controllers/auth_controller.dart';
 import 'package:sneakers/utils/precache_image.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async { 
       await PrecacheImages().init(context);
-      Get.find<SplashController>().init();
+      Get.find<AuthController>().init();
     });
   }
 
