@@ -8,6 +8,7 @@ class AppTheme {
     primaryColor: Color(0xFF403B58),
     primaryColorDark: Color(0xFF1F775C),
     accentColor: Color(0xFF218B5E),
+    cardColor:  Color(0xFFF2EEED),
     iconTheme: IconThemeData(
       color: Color(0xFFADB0BC),
     ),

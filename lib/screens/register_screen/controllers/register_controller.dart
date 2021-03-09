@@ -62,6 +62,8 @@ class SignupController extends GetxController {
       } else
         cityError = false;
     });
+
+    
   }
 
   void signUp() async {
