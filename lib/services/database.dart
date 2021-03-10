@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:sneakers/controllers/product_controller.dart';
+import 'package:sneakers/controllers/user_controller.dart';
 import 'package:sneakers/models/product.dart';
 import 'package:sneakers/models/user.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final UserController userController = Get.find<UserController>();
 
   Future<bool> createNewUser(UserModel user) async {
     try {
@@ -50,6 +52,14 @@ class Database {
     }
   }
 
+  Future<void> updateUser(String uid) async {
+     await _firestore.collection("users").doc(uid).update({
+        "name": userController.nameController.text,
+        "surname": userController.surnameController.text,
+        "address": userController.addressController.text,
+        "city": userController.cityController.text
+      });
+  }
 /*
   listenProducts() {
     List<ProductModel> tempProducts = List();

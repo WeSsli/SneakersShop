@@ -22,10 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       await PrecacheImages().init(context);
       Get.find<AuthController>().init();
-      productController.products.value = await Database().getProducts();
+      productController.products = await Database().getProducts();
       productController.filteredProducts.value =
-          List.from(productController.products.value);
-      for (ProductModel p in productController.products.value) {
+          List.from(productController.products);
+      for (ProductModel p in productController.products) {
         CachedNetworkImageProvider(p.images[0]);
         CachedNetworkImageProvider(p.images[1]);
       }

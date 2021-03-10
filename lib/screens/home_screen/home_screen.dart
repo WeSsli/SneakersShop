@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/controllers/user_controller.dart';
 import 'package:sneakers/screens/home_screen/views/home_view.dart';
+import 'package:sneakers/screens/home_screen/views/profile_view.dart';
 import 'package:sneakers/screens/home_screen/widgets/app_bar.dart';
 import 'package:sneakers/screens/home_screen/widgets/navigation_bottom.dart';
 
@@ -33,19 +34,9 @@ class HomeScreen extends StatelessWidget {
                         case 0:
                           return HomeView();
                         case 1:
-                          return Container(
-                            color: context.theme.scaffoldBackgroundColor,
-                            child: Center(
-                              child: Text("Ekran 2"),
-                            ),
-                          );
+                          return ProfileView();
                         default:
-                          return Container(
-                            color: context.theme.scaffoldBackgroundColor,
-                            child: Center(
-                              child: Text("Ekran 1"),
-                            ),
-                          );
+                          return ProfileView();
                       }
                     },
                   ),

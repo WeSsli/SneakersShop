@@ -35,13 +35,15 @@ class HomeAppBar extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    Text(
-                      userController.user.name == null
-                          ? "Loading..."
-                          : userController.user.name,
-                      style: context.textTheme.bodyText1.copyWith(
-                        fontSize: 20,
-                        color: Colors.black,
+                    Obx(
+                      () => Text(
+                        userController.user.name == null
+                            ? "Loading..."
+                            : userController.user.name,
+                        style: context.textTheme.bodyText1.copyWith(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -50,11 +52,23 @@ class HomeAppBar extends StatelessWidget {
                 PhysicalModel(
                   borderRadius: BorderRadius.circular(64),
                   shadowColor: Colors.black.withOpacity(0.5),
-                  color: Colors.white,
+                  color: navigationController.pageIndex.value == 1 &&
+                          userController.enabled.value
+                      ? context.theme.primaryColor
+                      : Colors.white,
                   elevation: 2,
                   child: CupertinoButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {},
+                    onPressed: () {
+                      if (navigationController.pageIndex.value == 1) {
+                        if(userController.enabled.value) {
+                          userController.enabled.value = false;
+                        }
+                        else {
+                          userController.enabled.value = true;
+                        }
+                      }
+                    },
                     child: navigationController.pageIndex.value == 0
                         ? SvgPicture.asset(
                             "assets/icons/cart.svg",
@@ -62,7 +76,10 @@ class HomeAppBar extends StatelessWidget {
                           )
                         : SvgPicture.asset(
                             "assets/icons/Edit.svg",
-                            color: Colors.black,
+                            color: navigationController.pageIndex.value == 1 &&
+                                    userController.enabled.value
+                                ? Colors.white
+                                : Colors.black,
                             height: 20,
                           ),
                   ),

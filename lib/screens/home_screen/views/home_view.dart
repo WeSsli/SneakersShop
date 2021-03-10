@@ -50,8 +50,7 @@ class _HomeViewState extends State<HomeView>
                 controller: refreshController,
                 enablePullDown: true,
                 onRefresh: () async {
-                  productController.products.value =
-                      await Database().getProducts();
+                  productController.products = await Database().getProducts();
                   productController.filterProducts();
                   refreshController.refreshCompleted();
                 },
@@ -78,7 +77,6 @@ class _HomeViewState extends State<HomeView>
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.3),
         child: CupertinoTextField(
-          onChanged: (string) {},
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
           decoration: BoxDecoration(color: Colors.transparent),
           controller: productController.searchController,

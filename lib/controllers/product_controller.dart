@@ -3,7 +3,7 @@ import 'package:sneakers/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductController extends GetxController {
-  Rx<List<ProductModel>> products = Rx<List<ProductModel>>();
+  List<ProductModel> products = List<ProductModel>();
   Rx<List<ProductModel>> filteredProducts = Rx<List<ProductModel>>();
   final TextEditingController searchController = TextEditingController();
   RxInt type = 3.obs;
@@ -20,25 +20,25 @@ class ProductController extends GetxController {
     if (type.value == 3) {
       if (searchController.text.isNotEmpty) {
         // print(searchController.text);
-        filteredProducts.value = products.value
-            .where((element) => (element.name
+        filteredProducts.value = products.
+            where((element) => (element.name
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase())))
             .toList();
       } else {
-        filteredProducts.value = List.from(products.value);
+        filteredProducts.value = List.from(products);
       }
     } else {
       if (searchController.text.isNotEmpty) {
         // print(searchController.text);
-        filteredProducts.value = products.value
+        filteredProducts.value = products
             .where((element) => (element.name
                     .toLowerCase()
                     .contains(searchController.text.toLowerCase()) &&
                 element.type == type.value))
             .toList();
       } else {
-        filteredProducts.value = products.value.where((element) => element.type == type.value).toList();
+        filteredProducts.value = products.where((element) => element.type == type.value).toList();
       }
     }
   }
