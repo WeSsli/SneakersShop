@@ -23,12 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
       await PrecacheImages().init(context);
       Get.find<AuthController>().init();
       productController.products.value = await Database().getProducts();
+      productController.filteredProducts.value =
+          List.from(productController.products.value);
       for (ProductModel p in productController.products.value) {
         CachedNetworkImageProvider(p.images[0]);
         CachedNetworkImageProvider(p.images[1]);
       }
       await Future.delayed(Duration(seconds: 1));
-      productController.filteredProducts = productController.products.value;
     });
   }
 

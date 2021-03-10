@@ -31,14 +31,16 @@ class _HomeViewState extends State<HomeView>
           SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text("Wszystkie"),
-                Text("Męskie"),
-                Text("Damskie"),
-                Text("Dziecięce"),
-              ],
+            child: Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _filterButton(context, "Wszystkie", 3),
+                  _filterButton(context, "Męskie", 0),
+                  _filterButton(context, "Damskie", 1),
+                  _filterButton(context, "Dziecięce", 2),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 24),
@@ -50,19 +52,21 @@ class _HomeViewState extends State<HomeView>
                 onRefresh: () async {
                   productController.products.value =
                       await Database().getProducts();
+                  productController.filterProducts();
                   refreshController.refreshCompleted();
                 },
                 child: ListView.builder(
                     padding: EdgeInsets.zero,
-                    itemCount: productController.products.value.length,
+                    itemCount: productController.filteredProducts.value.length,
                     itemBuilder: (context, index) {
                       return ProductCard(
-                          product: productController.products.value[index]);
+                          product:
+                              productController.filteredProducts.value[index]);
                     }),
               ),
             ),
           ),
-          SizedBox(height: 48)
+          SizedBox(height: 36),
         ],
       ),
     );
@@ -74,10 +78,7 @@ class _HomeViewState extends State<HomeView>
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.3),
         child: CupertinoTextField(
-          onChanged: (string) {
-            
-            
-          },
+          onChanged: (string) {},
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
           decoration: BoxDecoration(color: Colors.transparent),
           controller: productController.searchController,
@@ -89,6 +90,38 @@ class _HomeViewState extends State<HomeView>
           prefix: Container(
             margin: EdgeInsets.only(left: 8, right: 16),
             child: Icon(Icons.search),
+          ),
+        ),
+      );
+
+  Widget _filterButton(BuildContext context, String text, int prodType) =>
+      CupertinoButton(
+        padding: EdgeInsets.zero,
+        minSize: 0,
+        color: Colors.transparent,
+        onPressed: () {
+          productController.type.value = prodType;
+          productController.filterProducts();
+        },
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: productController.type.value == prodType
+                ? context.theme.primaryColor
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            text,
+            style: productController.type.value == prodType
+                ? context.textTheme.bodyText1.copyWith(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  )
+                : context.textTheme.bodyText1.copyWith(
+                    fontSize: 16,
+                  ),
           ),
         ),
       );
