@@ -40,7 +40,6 @@ class TextInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             elevation: 2,
             shadowColor: Colors.black.withOpacity(0.3),
-            
             child: CupertinoTextField(
               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
               decoration: BoxDecoration(color: Colors.transparent),
@@ -48,6 +47,18 @@ class TextInput extends StatelessWidget {
               obscureText: obscure,
               keyboardType: type,
               textInputAction: action,
+              suffix: CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  textEditingController.clear();
+                },
+                child: Icon(
+                  Icons.clear,
+                  size: 12,
+                  color: Colors.black,
+                ),
+              ),
+              suffixMode: OverlayVisibilityMode.editing,
             ),
           ),
         ],

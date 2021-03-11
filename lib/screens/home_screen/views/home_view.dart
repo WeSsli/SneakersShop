@@ -80,6 +80,9 @@ class _HomeViewState extends State<HomeView>
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
           decoration: BoxDecoration(color: Colors.transparent),
           controller: productController.searchController,
+          onSubmitted: (_){
+            FocusScope.of(context).unfocus();
+          },
           placeholder: "Szukaj",
           placeholderStyle: context.textTheme.bodyText1.copyWith(
             fontSize: 16,
@@ -89,6 +92,14 @@ class _HomeViewState extends State<HomeView>
             margin: EdgeInsets.only(left: 8, right: 16),
             child: Icon(Icons.search),
           ),
+          suffix: CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              productController.searchController.clear();
+            },
+            child: Icon(Icons.clear, size: 12, color: Colors.black,),
+          ),
+          suffixMode: OverlayVisibilityMode.editing,
         ),
       );
 

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sneakers/controllers/user_controller.dart';
@@ -6,6 +8,12 @@ import 'package:sneakers/services/database.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  PageController deleteDialogController =
+      PageController(initialPage: 0, keepPage: true);
+  var dialogIndex = 0.obs;
+  final TextEditingController dialogEmailController = TextEditingController();
+  final TextEditingController dialogPasswordController =
+      TextEditingController();
 
   void init() {
     Get.find<FirebaseAuth>().authStateChanges().listen((event) async {
@@ -72,6 +80,30 @@ class AuthController extends GetxController {
         e.message,
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+
+  //TODO usunac usera z firestore
+  void deleteUser() async {
+    EmailAuthCredential credential = EmailAuthProvider.credential(
+        email: dialogEmailController.text,
+        password: dialogPasswordController.text);
+    await _auth.currentUser.reauthenticateWithCredential(credential);
+    _auth.currentUser.delete();
+    dialogEmailController.clear();
+    dialogPasswordController.clear();
+    Get.find<UserController>().userClear();
+  }
+
+  Future setPage(int index) async {
+    if (deleteDialogController != null) {
+      await deleteDialogController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 375),
+        curve: Curves.easeInOut,
+      );
+
+      dialogIndex.value = index;
     }
   }
 }

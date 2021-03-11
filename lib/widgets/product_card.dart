@@ -40,9 +40,12 @@ class ProductCard extends StatelessWidget {
                       angle: 6.0,
                       child: Container(
                         margin: EdgeInsets.only(right: 10),
-                        child: Image(
-                          image: CachedNetworkImageProvider(
-                            product.images[0],
+                        child: Hero(
+                          tag: product.name,
+                          child: Image(
+                            image: CachedNetworkImageProvider(
+                              product.images[0],
+                            ),
                           ),
                         ),
                       ),
@@ -112,6 +115,8 @@ class ProductCard extends StatelessWidget {
         minSize: 0,
         color: Colors.transparent,
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed('product', arguments: product);
+        },
       );
 }

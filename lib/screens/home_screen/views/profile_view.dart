@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sneakers/controllers/auth_controller.dart';
 import 'package:sneakers/controllers/user_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sneakers/screens/home_screen/widgets/profile_input.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:sneakers/services/database.dart';
+import 'package:sneakers/widgets/delete_dialog.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -58,35 +60,26 @@ class _ProfileViewState extends State<ProfileView>
             Spacer(),
             Obx(
               () => Container(
-                child: userController.enabled.value
-                    ? CupertinoButton(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 64, vertical: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: context.theme.primaryColor,
-                          ),
-                          child: Text(
-                            "Zapisz",
-                            style: context.textTheme.bodyText1.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {
-                          await database.updateUser(userController.user.id);
-                          userController.enabled.value = false;
-                          userController.user = await database.getUser(userController.user.id);
-                        },
-                        padding: EdgeInsets.zero,
-                        minSize: 0,
-                        color: Colors.transparent,
-                      )
-                    : SizedBox(height: 0),
+                  child: userController.enabled.value
+                      ? _saveButton(context)
+                      : _signoutButton(context)),
+            ),
+            SizedBox(height: 12),
+            CupertinoButton(
+              child: Text(
+                "Usuń konto",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: context.theme.primaryColor,
+                ),
               ),
+              onPressed: () {
+                Get.dialog(DeleteDialog());
+              },
+              padding: EdgeInsets.zero,
+              minSize: 0,
+              color: Colors.transparent,
             ),
             SizedBox(
               height: 64,
@@ -96,6 +89,56 @@ class _ProfileViewState extends State<ProfileView>
       ),
     );
   }
+
+  Widget _saveButton(BuildContext context) => CupertinoButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 64, vertical: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: context.theme.primaryColor,
+          ),
+          child: Text(
+            "Zapisz",
+            style: context.textTheme.bodyText1.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        onPressed: () async {
+          await database.updateUser(userController.user.id);
+          userController.enabled.value = false;
+          userController.user = await database.getUser(userController.user.id);
+        },
+        padding: EdgeInsets.zero,
+        minSize: 0,
+        color: Colors.transparent,
+      );
+
+  Widget _signoutButton(BuildContext context) => CupertinoButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 64, vertical: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: context.theme.primaryColor,
+          ),
+          child: Text(
+            "Wyloguj",
+            style: context.textTheme.bodyText1.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        onPressed: () async {
+          Get.find<AuthController>().signOut();
+        },
+        padding: EdgeInsets.zero,
+        minSize: 0,
+        color: Colors.transparent,
+      );
 
   @override
   bool get wantKeepAlive => true;

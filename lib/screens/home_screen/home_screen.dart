@@ -26,6 +26,9 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 42),
                   child: PageView.builder(
+                    onPageChanged: (_){
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                    },
                     controller: navigationController.pageController,
                     itemCount: 2,
                     physics: NeverScrollableScrollPhysics(),

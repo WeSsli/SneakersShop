@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:sneakers/bindings/init_binding.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:sneakers/bindings/login_screen_binding.dart';
+import 'package:sneakers/bindings/product_screen_binding.dart';
 import 'package:sneakers/bindings/register_screen_binding.dart';
 import 'package:sneakers/screens/home_screen/home_screen.dart';
-import 'package:sneakers/screens/login_screen/controllers/log_in_controller.dart';
 import 'package:sneakers/screens/login_screen/login_screen.dart';
-import 'package:sneakers/screens/register_screen/controllers/register_controller.dart';
+import 'package:sneakers/screens/product_screen/product_screen.dart';
 import 'package:sneakers/screens/register_screen/register_screen.dart';
 import 'package:sneakers/screens/splash_screen/splash_screen.dart';
 import 'package:sneakers/utils/theme.dart';
@@ -66,6 +66,11 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: 'home',
             page: () => HomeScreen(),
+          ),
+          GetPage(
+            name: 'product',
+            page: () => ProductScreen(),
+            binding: ProductBinding(),
           ),
         ]);
   }

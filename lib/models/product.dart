@@ -6,6 +6,7 @@ class ProductModel {
   int type;
   List<String> images;
   List<String> sizes;
+  String description;
 
   ProductModel({
     this.name,
@@ -13,6 +14,7 @@ class ProductModel {
     this.type,
     this.images,
     this.sizes,
+    this.description
   });
 
   ProductModel.fromDocumentSnapshot(DocumentSnapshot doc) {
@@ -21,5 +23,6 @@ class ProductModel {
     type = doc["type"];
     images = List.from(doc["images"]);
     sizes = List.from(doc["sizes"]);
+    description = doc["description"];
   }
 }

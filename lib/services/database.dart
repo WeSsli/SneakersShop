@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/controllers/user_controller.dart';
 import 'package:sneakers/models/product.dart';

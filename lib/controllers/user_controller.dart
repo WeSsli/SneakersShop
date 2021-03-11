@@ -11,6 +11,7 @@ class UserController extends GetxController {
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  
   RxBool enabled = false.obs;
 
   void init(){

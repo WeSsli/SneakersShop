@@ -121,6 +121,8 @@ class LoginScreen extends GetView<SigninController> {
             ),
             onPressed: () {
               Get.toNamed("register");
+              controller.emailController.clear();
+              controller.passwordController.clear();
             },
             padding: EdgeInsets.zero,
             minSize: 0,
