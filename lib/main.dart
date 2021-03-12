@@ -7,6 +7,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:sneakers/bindings/login_screen_binding.dart';
 import 'package:sneakers/bindings/product_screen_binding.dart';
 import 'package:sneakers/bindings/register_screen_binding.dart';
+import 'package:sneakers/screens/cart_screen/cart_screen.dart';
 import 'package:sneakers/screens/home_screen/home_screen.dart';
 import 'package:sneakers/screens/login_screen/login_screen.dart';
 import 'package:sneakers/screens/product_screen/product_screen.dart';
@@ -71,6 +72,10 @@ class MyApp extends StatelessWidget {
             name: 'product',
             page: () => ProductScreen(),
             binding: ProductBinding(),
+          ),
+          GetPage(
+            name: "cart",
+            page: () => CartScreen(),
           ),
         ]);
   }

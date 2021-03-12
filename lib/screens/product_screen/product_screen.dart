@@ -4,11 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
 import 'package:sneakers/screens/product_screen/controllers/product_screen_controller.dart';
 
 class ProductScreen extends StatelessWidget {
   final ProductScreenController productScreenController =
       Get.find<ProductScreenController>();
+
+  final CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +163,9 @@ class ProductScreen extends StatelessWidget {
               elevation: 2,
               child: CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed("cart");
+                },
                 child: SvgPicture.asset(
                   "assets/icons/cart.svg",
                   height: 25,
@@ -198,7 +203,6 @@ class ProductScreen extends StatelessWidget {
 
   Widget _sizeList(BuildContext context) => Container(
         height: 50,
-        width: context.mediaQuery.size.width,
         child: ListView.builder(
             padding: EdgeInsets.only(left: 24),
             scrollDirection: Axis.horizontal,
@@ -279,6 +283,8 @@ class ProductScreen extends StatelessWidget {
         minSize: 0,
         color: Colors.transparent,
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: () {
+          cartController.addToCart(productScreenController.product.value, productScreenController.size.value);
+        },
       );
 }

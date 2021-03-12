@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sneakers/controllers/auth_controller.dart';
 import 'package:sneakers/controllers/product_controller.dart';
 import 'package:sneakers/controllers/user_controller.dart';
+import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
 
 class InitBinding extends Bindings {
   @override
@@ -11,5 +12,6 @@ class InitBinding extends Bindings {
     Get.put<UserController>(UserController());
     Get.put<FirebaseAuth>(FirebaseAuth.instance);
     Get.put<ProductController>(ProductController());
+    Get.put<CartController>(CartController());
   }
 }

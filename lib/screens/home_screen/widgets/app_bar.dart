@@ -68,6 +68,9 @@ class HomeAppBar extends StatelessWidget {
                           userController.enabled.value = true;
                         }
                       }
+                      else{
+                        Get.toNamed("cart");
+                      }
                     },
                     child: navigationController.pageIndex.value == 0
                         ? SvgPicture.asset(
