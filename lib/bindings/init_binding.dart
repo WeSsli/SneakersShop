@@ -8,10 +8,10 @@ import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
 class InitBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<AuthController>(AuthController());
     Get.put<UserController>(UserController());
+    Get.put<CartController>(CartController());
+    Get.put<AuthController>(AuthController());
     Get.put<FirebaseAuth>(FirebaseAuth.instance);
     Get.put<ProductController>(ProductController());
-    Get.put<CartController>(CartController());
   }
 }

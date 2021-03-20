@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/screens/cart_screen/widgets/cart_product.dart';
+import 'package:sneakers/services/database.dart';
+import 'package:sneakers/widgets/order_dialog.dart';
 
 import 'controllers/cart_controller.dart';
 
@@ -53,7 +55,7 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 20),
           Expanded(
             child: Obx(
               () => cartController.cartList.value.isNotEmpty
@@ -115,7 +117,11 @@ class CartScreen extends StatelessWidget {
                           minSize: 0,
                           color: Colors.transparent,
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (await Database().order()) {
+                              Get.dialog(OrderDialog());
+                            }
+                          },
                         ),
                         SizedBox(
                           height: 24,
@@ -123,11 +129,17 @@ class CartScreen extends StatelessWidget {
                       ],
                     )
                   : Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: Column(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Column(
                         children: [
-                          SizedBox(child: SvgPicture.asset('assets/images/EmptyCart.svg'), height: 250,),
-                          SizedBox(height: 48,),
+                          SizedBox(
+                            child:
+                                SvgPicture.asset('assets/images/EmptyCart.svg'),
+                            height: 250,
+                          ),
+                          SizedBox(
+                            height: 48,
+                          ),
                           Text(
                             "Koszyk jest pusty",
                             style: context.textTheme.bodyText1.copyWith(
@@ -136,7 +148,7 @@ class CartScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                  ),
+                    ),
             ),
           ),
         ],

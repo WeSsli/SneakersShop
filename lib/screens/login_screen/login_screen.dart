@@ -10,57 +10,62 @@ class LoginScreen extends GetView<SigninController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: context.mediaQuery.padding.top + 4,
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: SizedBox(
-                  child: SvgPicture.asset('assets/images/LoginImage.svg'),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: context.mediaQuery.padding.top + 4,
                 ),
-                height: 200,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                "Logowanie",
-                style: context.textTheme.bodyText1.copyWith(
-                  fontSize: 38,
-                  fontWeight: FontWeight.bold,
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    child: SvgPicture.asset('assets/images/LoginImage.svg'),
+                  ),
+                  height: 200,
                 ),
-              ),
-              SizedBox(
-                height: 48,
-              ),
-              TextInput(
-                label: "E-mail",
-                textEditingController: controller.emailController,
-                type: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              TextInput(
-                label: "Hasło",
-                textEditingController: controller.passwordController,
-                obscure: true,
-                action: TextInputAction.done,
-              ),
-              SizedBox(
-                height: 64,
-              ),
-              _signinButton(context),
-              SizedBox(
-                height: 28,
-              ),
-              _footer(context),
-            ],
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Logowanie",
+                  style: context.textTheme.bodyText1.copyWith(
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 48,
+                ),
+                TextInput(
+                  label: "E-mail",
+                  textEditingController: controller.emailController,
+                  type: TextInputType.emailAddress,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                TextInput(
+                  label: "Hasło",
+                  textEditingController: controller.passwordController,
+                  obscure: true,
+                  action: TextInputAction.done,
+                ),
+                SizedBox(
+                  height: 64,
+                ),
+                _signinButton(context),
+                SizedBox(
+                  height: 28,
+                ),
+                _footer(context),
+              ],
+            ),
           ),
         ),
       ),

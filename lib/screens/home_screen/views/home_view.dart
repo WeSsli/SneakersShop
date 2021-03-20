@@ -21,52 +21,58 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: _searchBar(context),
-          ),
-          SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _filterButton(context, "Wszystkie", 3),
-                  _filterButton(context, "Męskie", 0),
-                  _filterButton(context, "Damskie", 1),
-                  _filterButton(context, "Dziecięce", 2),
-                ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: _searchBar(context),
+            ),
+            SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _filterButton(context, "Wszystkie", 3),
+                    _filterButton(context, "Męskie", 0),
+                    _filterButton(context, "Damskie", 1),
+                    _filterButton(context, "Dziecięce", 2),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 24),
-          Expanded(
-            child: Obx(
-              () => SmartRefresher(
-                controller: refreshController,
-                enablePullDown: true,
-                onRefresh: () async {
-                  productController.products = await Database().getProducts();
-                  productController.filterProducts();
-                  refreshController.refreshCompleted();
-                },
-                child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: productController.filteredProducts.value.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                          product:
-                              productController.filteredProducts.value[index]);
-                    }),
+            SizedBox(height: 24),
+            Expanded(
+              child: Obx(
+                () => SmartRefresher(
+                  controller: refreshController,
+                  enablePullDown: true,
+                  onRefresh: () async {
+                    productController.products = await Database().getProducts();
+                    productController.filterProducts();
+                    refreshController.refreshCompleted();
+                  },
+                  child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount:
+                          productController.filteredProducts.value.length,
+                      itemBuilder: (context, index) {
+                        return ProductCard(
+                            product: productController
+                                .filteredProducts.value[index]);
+                      }),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 36),
-        ],
+            SizedBox(height: 36),
+          ],
+        ),
       ),
     );
   }
@@ -80,7 +86,7 @@ class _HomeViewState extends State<HomeView>
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 6),
           decoration: BoxDecoration(color: Colors.transparent),
           controller: productController.searchController,
-          onSubmitted: (_){
+          onSubmitted: (_) {
             FocusScope.of(context).unfocus();
           },
           placeholder: "Szukaj",
@@ -97,7 +103,11 @@ class _HomeViewState extends State<HomeView>
             onPressed: () {
               productController.searchController.clear();
             },
-            child: Icon(Icons.clear, size: 12, color: Colors.black,),
+            child: Icon(
+              Icons.clear,
+              size: 12,
+              color: Colors.black,
+            ),
           ),
           suffixMode: OverlayVisibilityMode.editing,
         ),

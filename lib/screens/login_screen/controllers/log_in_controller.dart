@@ -10,6 +10,7 @@ class SigninController extends GetxController {
   bool emailError = false;
   bool passwordError = false;
 
+  //TODO Poprawic walidacje
   @override
   void onInit() {
     super.onInit();

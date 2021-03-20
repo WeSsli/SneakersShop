@@ -14,11 +14,12 @@ class AuthController extends GetxController {
   final TextEditingController dialogEmailController = TextEditingController();
   final TextEditingController dialogPasswordController =
       TextEditingController();
+  final database = Database();
 
   void init() {
     Get.find<FirebaseAuth>().authStateChanges().listen((event) async {
       if (event != null) {
-        Get.find<UserController>().user = await Database().getUser(event.uid);
+        Get.find<UserController>().user = await database.getUser(event.uid);
         Get.offNamed("home");
       } else {
         Get.offNamed("login");
@@ -45,17 +46,17 @@ class AuthController extends GetxController {
       );
 
       //Create user in firestore
-      if (await Database().createNewUser(_user)) {
+      if (await database.createNewUser(_user)) {
         Get.find<UserController>().user = _user;
       } else {
         throw ("Nie dodano użytkownika do bazy");
       }
     } catch (e) {
-      Get.snackbar(
-        "Error creating account",
-        e.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.rawSnackbar(
+          backgroundColor: Colors.red,
+          title: "Nie udało się utworzyć konta",
+          message: e.message,
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
@@ -64,9 +65,14 @@ class AuthController extends GetxController {
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
       Get.find<UserController>().user =
-          await Database().getUser(_authResult.user.uid);
+          await database.getUser(_authResult.user.uid);
     } catch (e) {
-      Get.snackbar('Error while loging in', e.message);
+      Get.rawSnackbar(
+          backgroundColor: Colors.red,
+          title: "Nie udało się zalogować",
+          message: e.message,
+          snackPosition: SnackPosition.BOTTOM);
+      print(e.message);
     }
   }
 
@@ -74,25 +80,57 @@ class AuthController extends GetxController {
     try {
       await _auth.signOut();
       Get.find<UserController>().userClear();
+      Get.rawSnackbar(
+          backgroundColor: Colors.green,
+          message: "Wylogowano",
+          snackPosition: SnackPosition.BOTTOM);
     } catch (e) {
-      Get.snackbar(
-        "Error signing out",
-        e.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.rawSnackbar(
+          backgroundColor: Colors.red,
+          message: e.message,
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
-  //TODO usunac usera z firestore
   void deleteUser() async {
     EmailAuthCredential credential = EmailAuthProvider.credential(
         email: dialogEmailController.text,
         password: dialogPasswordController.text);
-    await _auth.currentUser.reauthenticateWithCredential(credential);
-    _auth.currentUser.delete();
-    dialogEmailController.clear();
-    dialogPasswordController.clear();
-    Get.find<UserController>().userClear();
+    try {
+      await _auth.currentUser
+          .reauthenticateWithCredential(credential)
+          .then((value) async {
+        if (await database.deleteUser(_auth.currentUser.uid)) {
+          await _auth.currentUser.delete();
+
+          Get.rawSnackbar(
+            backgroundColor: Colors.green,
+            message: "Konto zostało usunięte",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+
+          dialogEmailController.clear();
+          dialogPasswordController.clear();
+          Get.find<UserController>().userClear();
+
+          init();
+        } else {
+          Get.rawSnackbar(
+              backgroundColor: Colors.red,
+              message: "Nie udało się usunąć konta",
+              snackPosition: SnackPosition.BOTTOM);
+        }
+      });
+    } catch (e) {
+      dialogEmailController.clear();
+      dialogPasswordController.clear();
+      Get.find<UserController>().userClear();
+      Get.rawSnackbar(
+          backgroundColor: Colors.red,
+          message: "Nastąpiło wylogowanie",
+          title: "Podane dane są niepoprawne",
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 
   Future setPage(int index) async {

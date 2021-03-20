@@ -30,61 +30,66 @@ class _ProfileViewState extends State<ProfileView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      child: Obx(
-        () => Column(
-          children: [
-            ProfileInput(
-              textEditingController: userController.nameController,
-              path: 'assets/icons/user.svg',
-              enabled: userController.enabled.value,
-            ),
-            SizedBox(height: 16),
-            ProfileInput(
-              textEditingController: userController.surnameController,
-              path: 'assets/icons/user.svg',
-              enabled: userController.enabled.value,
-            ),
-            SizedBox(height: 16),
-            ProfileInput(
-              textEditingController: userController.addressController,
-              path: 'assets/icons/id-card.svg',
-              enabled: userController.enabled.value,
-            ),
-            SizedBox(height: 16),
-            ProfileInput(
-              textEditingController: userController.cityController,
-              path: 'assets/icons/id-card.svg',
-              enabled: userController.enabled.value,
-            ),
-            Spacer(),
-            Obx(
-              () => Container(
-                  child: userController.enabled.value
-                      ? _saveButton(context)
-                      : _signoutButton(context)),
-            ),
-            SizedBox(height: 12),
-            CupertinoButton(
-              child: Text(
-                "Usuń konto",
-                style: context.textTheme.bodyText1.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  color: context.theme.primaryColor,
-                ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Container(
+        child: Obx(
+          () => Column(
+            children: [
+              ProfileInput(
+                textEditingController: userController.nameController,
+                path: 'assets/icons/user.svg',
+                enabled: userController.enabled.value,
               ),
-              onPressed: () {
-                Get.dialog(DeleteDialog());
-              },
-              padding: EdgeInsets.zero,
-              minSize: 0,
-              color: Colors.transparent,
-            ),
-            SizedBox(
-              height: 64,
-            ),
-          ],
+              SizedBox(height: 16),
+              ProfileInput(
+                textEditingController: userController.surnameController,
+                path: 'assets/icons/user.svg',
+                enabled: userController.enabled.value,
+              ),
+              SizedBox(height: 16),
+              ProfileInput(
+                textEditingController: userController.addressController,
+                path: 'assets/icons/id-card.svg',
+                enabled: userController.enabled.value,
+              ),
+              SizedBox(height: 16),
+              ProfileInput(
+                textEditingController: userController.cityController,
+                path: 'assets/icons/id-card.svg',
+                enabled: userController.enabled.value,
+              ),
+              Spacer(),
+              Obx(
+                () => Container(
+                    child: userController.enabled.value
+                        ? _saveButton(context)
+                        : _signoutButton(context)),
+              ),
+              SizedBox(height: 12),
+              CupertinoButton(
+                child: Text(
+                  "Usuń konto",
+                  style: context.textTheme.bodyText1.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: context.theme.primaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  Get.dialog(DeleteDialog());
+                },
+                padding: EdgeInsets.zero,
+                minSize: 0,
+                color: Colors.transparent,
+              ),
+              SizedBox(
+                height: 64,
+              ),
+            ],
+          ),
         ),
       ),
     );

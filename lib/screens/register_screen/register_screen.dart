@@ -9,77 +9,82 @@ class RegisterScreen extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 16,
-              ),
-              Center(
-                child: Text(
-                  "Rejestracja",
-                  style: context.textTheme.bodyText1.copyWith(
-                    fontSize: 38,
-                    fontWeight: FontWeight.bold,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 16,
+                ),
+                Center(
+                  child: Text(
+                    "Rejestracja",
+                    style: context.textTheme.bodyText1.copyWith(
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              TextInput(
-                label: "E-mail",
-                textEditingController: controller.emailController,
-                type: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextInput(
-                label: "Hasło",
-                textEditingController: controller.passwordController,
-                obscure: true,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextInput(
-                label: "Imię",
-                textEditingController: controller.nameController,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextInput(
-                label: "Nazwisko",
-                textEditingController: controller.surnameController,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextInput(
-                label: "Adres",
-                textEditingController: controller.addressController,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextInput(
-                label: "Miejscowość",
-                textEditingController: controller.cityController,
-                action: TextInputAction.done,
-              ),
-              SizedBox(
-                height: 48,
-              ),
-              _signupButton(context),
-              SizedBox(
-                height: 28,
-              ),
-              _footer(context),
-            ],
+                SizedBox(
+                  height: 24,
+                ),
+                TextInput(
+                  label: "E-mail",
+                  textEditingController: controller.emailController,
+                  type: TextInputType.emailAddress,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextInput(
+                  label: "Hasło",
+                  textEditingController: controller.passwordController,
+                  obscure: true,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextInput(
+                  label: "Imię",
+                  textEditingController: controller.nameController,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextInput(
+                  label: "Nazwisko",
+                  textEditingController: controller.surnameController,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextInput(
+                  label: "Adres",
+                  textEditingController: controller.addressController,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextInput(
+                  label: "Miejscowość",
+                  textEditingController: controller.cityController,
+                  action: TextInputAction.done,
+                ),
+                SizedBox(
+                  height: 48,
+                ),
+                _signupButton(context),
+                SizedBox(
+                  height: 28,
+                ),
+                _footer(context),
+              ],
+            ),
           ),
         ),
       ),

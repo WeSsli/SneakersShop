@@ -61,14 +61,12 @@ class HomeAppBar extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     onPressed: () {
                       if (navigationController.pageIndex.value == 1) {
-                        if(userController.enabled.value) {
+                        if (userController.enabled.value) {
                           userController.enabled.value = false;
-                        }
-                        else {
+                        } else {
                           userController.enabled.value = true;
                         }
-                      }
-                      else{
+                      } else {
                         Get.toNamed("cart");
                       }
                     },

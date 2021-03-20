@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sneakers/models/cart_product.dart';
 import 'package:sneakers/models/product.dart';
+import 'package:flutter/material.dart';
 
 class CartController extends GetxController {
   Rx<List<ProductCartModel>> cartList = Rx<List<ProductCartModel>>();
@@ -27,27 +28,37 @@ class CartController extends GetxController {
       cartList.value.add(tempProduct);
     }*/
 
-    if (cartList.value.isEmpty) {
-      cartList.value.add(tempProduct);
-      sumPrice.value += int.parse(tempProduct.product.price);
-    } else {
-      for (ProductCartModel p in cartList.value) {
-        if (p.product == tempProduct.product && p.size == tempProduct.size) {
-          p.quantity++;
-          sumPrice.value += int.parse(tempProduct.product.price);
-          isIn = true;
-        }
-      }
-      if (!isIn) {
+    if (tempProduct.size != "0") {
+      if (cartList.value.isEmpty) {
         cartList.value.add(tempProduct);
         sumPrice.value += int.parse(tempProduct.product.price);
+      } else {
+        for (ProductCartModel p in cartList.value) {
+          if (p.product == tempProduct.product && p.size == tempProduct.size) {
+            p.quantity++;
+            sumPrice.value += int.parse(tempProduct.product.price);
+            isIn = true;
+          }
+        }
+        if (!isIn) {
+          cartList.value.add(tempProduct);
+          sumPrice.value += int.parse(tempProduct.product.price);
+        }
       }
+    } else {
+      Get.rawSnackbar(
+          backgroundColor: Colors.red,
+          message: "Proszę wybrać rozmiar",
+          snackPosition: SnackPosition.BOTTOM);
     }
+    
 
+    /*
     for (ProductCartModel p in cartList.value) {
       print(p.product.name + " " + p.size + " " + p.quantity.toString());
     }
     print("-----------------------");
+    */
   }
 
   void removeFromCart(int index) {

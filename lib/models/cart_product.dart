@@ -11,5 +11,11 @@ class ProductCartModel {
     this.size,
   });
 
-  
+  Map<String, dynamic> toMap() {
+    return {
+      'product': product.toMap(),
+      'quantity': quantity,
+      'size': size,
+    };
+  }
 }

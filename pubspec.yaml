@@ -38,6 +38,7 @@ dependencies:
   pull_to_refresh: 1.6.3
   carousel_slider: ^3.0.0
   numberpicker: 
+  animations:
 
 
 dev_dependencies:

@@ -17,6 +17,8 @@ class SignupController extends GetxController {
   bool addressError = false;
   bool cityError = false;
 
+
+//TODO poprawic walidacje
   @override
   void onInit() {
     super.onInit();

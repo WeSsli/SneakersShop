@@ -16,7 +16,7 @@ class CartProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(left: 24.0, right: 24, top: 12, bottom: 12),
+          const EdgeInsets.only(left: 24.0, right: 24, top: 20, bottom: 8),
       child: Stack(
         overflow: Overflow.visible,
         children: [
