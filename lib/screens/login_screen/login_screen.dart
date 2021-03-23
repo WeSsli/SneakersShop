@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:sneakers/widgets/progress_button.dart';
 import 'package:sneakers/widgets/text_input.dart';
 
 import 'controllers/log_in_controller.dart';
@@ -59,7 +60,9 @@ class LoginScreen extends GetView<SigninController> {
                 SizedBox(
                   height: 64,
                 ),
-                _signinButton(context),
+                ProgressButton(
+                  text: "Zaloguj",
+                ),
                 SizedBox(
                   height: 28,
                 ),
@@ -72,35 +75,6 @@ class LoginScreen extends GetView<SigninController> {
     );
   }
 
-  Widget _signinButton(BuildContext context) => CupertinoButton(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          width: context.mediaQuery.size.width,
-          decoration: BoxDecoration(
-            color: context.theme.primaryColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 22),
-            child: Center(
-              child: Text(
-                "Zaloguj",
-                style: context.textTheme.bodyText1.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-        minSize: 0,
-        color: Colors.transparent,
-        padding: EdgeInsets.zero,
-        onPressed: () {
-          controller.signIn();
-        },
-      );
 
   Widget _footer(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
