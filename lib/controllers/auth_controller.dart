@@ -60,19 +60,20 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> logIn(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     try {
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
       Get.find<UserController>().user =
           await database.getUser(_authResult.user.uid);
+      return true;
     } catch (e) {
       Get.rawSnackbar(
           backgroundColor: Colors.red,
           title: "Nie udało się zalogować",
           message: e.message,
           snackPosition: SnackPosition.BOTTOM);
-      print(e.message);
+      return false;
     }
   }
 

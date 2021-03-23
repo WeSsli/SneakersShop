@@ -32,20 +32,19 @@ class SigninController extends GetxController {
 
   Future<bool> signIn() async {
     if (!emailError && !passwordError) {
-      try {
-        await c.logIn(emailController.text, passwordController.text);
-        return true;
-      } catch (e) {
-        return false;
-      } finally {
-        emailController.clear();
+      return await c
+          .logIn(emailController.text, passwordController.text)
+          .then((b) {
         passwordController.clear();
-      }
+        return b;
+      });
     } else {
       Get.rawSnackbar(
         backgroundColor: Colors.red,
         message: "Nie udało się zalogować",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(24),
+        borderRadius: 12,
       );
       return false;
     }
