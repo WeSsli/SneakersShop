@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
 import 'package:sneakers/screens/product_screen/controllers/product_screen_controller.dart';
+import 'package:sneakers/widgets/cart_button.dart';
 
 class ProductScreen extends StatelessWidget {
   final ProductScreenController productScreenController =
@@ -156,22 +157,7 @@ class ProductScreen extends StatelessWidget {
           Positioned(
             top: context.mediaQuery.padding.top + 8,
             right: 24,
-            child: PhysicalModel(
-              borderRadius: BorderRadius.circular(64),
-              shadowColor: Colors.black.withOpacity(0.5),
-              color: Colors.white,
-              elevation: 2,
-              child: CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Get.toNamed("cart");
-                },
-                child: SvgPicture.asset(
-                  "assets/icons/cart.svg",
-                  height: 25,
-                ),
-              ),
-            ),
+            child: CartButton(),
           ),
           Positioned(
             top: context.mediaQuery.padding.top + 8,
@@ -283,8 +269,15 @@ class ProductScreen extends StatelessWidget {
         minSize: 0,
         color: Colors.transparent,
         padding: EdgeInsets.zero,
-        onPressed: () {
-          cartController.addToCart(productScreenController.product.value, productScreenController.size.value);
+        onPressed: () async {
+          if (await cartController.addToCart(
+              productScreenController.product.value,
+              productScreenController.size.value)) {
+            productScreenController.animationController.forward().then(
+                  (value) =>
+                      productScreenController.animationController.reverse(),
+                );
+          }
         },
       );
 }

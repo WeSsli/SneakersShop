@@ -13,7 +13,7 @@ class CartController extends GetxController {
     cartList.value = List<ProductCartModel>();
   }
 
-  void addToCart(ProductModel product, String size) {
+  Future<bool> addToCart(ProductModel product, String size) async {
     ProductCartModel tempProduct =
         ProductCartModel(product: product, size: size, quantity: 1);
 
@@ -45,11 +45,13 @@ class CartController extends GetxController {
           sumPrice.value += int.parse(tempProduct.product.price);
         }
       }
+      return true;
     } else {
       Get.rawSnackbar(
           backgroundColor: Colors.red,
           message: "Proszę wybrać rozmiar",
           snackPosition: SnackPosition.BOTTOM);
+          return false;
     }
 
     /*

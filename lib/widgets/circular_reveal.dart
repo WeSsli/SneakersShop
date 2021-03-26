@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
@@ -42,9 +40,10 @@ class _CircularRevealState extends State<CircularReveal>
         });
       });
     controller.forward().then((_) async {
-      Get.dialog(OrderDialog(
-        animationController: controller,
-      ));
+      Get.dialog(OrderDialog())
+          .then((value) => Get.find<CartController>().clearCart().then((_) {
+                controller.reset();
+              }));
     });
   }
 }

@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:sneakers/screens/cart_screen/controllers/cart_controller.dart';
-import 'package:sneakers/services/database.dart';
 
 class OrderDialog extends StatelessWidget {
   final CartController cartController = Get.find<CartController>();
-  final AnimationController animationController;
-
-  OrderDialog({
-    @required this.animationController,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +64,6 @@ class OrderDialog extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  await Get.find<CartController>().clearCart();
-                  animationController.reset();
                   Get.back();
                 },
                 minSize: 0,

@@ -5,7 +5,7 @@ import 'package:sneakers/services/database.dart';
 
 class CartProgressButton extends StatefulWidget {
   final String text;
-  Function callback;
+  final Function callback;
 
   CartProgressButton({Key key, this.text, this.callback}) : super(key: key);
 
