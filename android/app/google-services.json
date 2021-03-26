@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "552406133101",
+    "project_id": "sneakersshop-2c5e5",
+    "storage_bucket": "sneakersshop-2c5e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552406133101:android:774fb5397c48fc940f5264",
+        "android_client_info": {
+          "package_name": "me.mbeska.sneakers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552406133101-g6infrhqepr0jgecsqj03j3q4b3jvaqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCobToAZ24Woa7-NRQMGfdMLC3KdzWE2EU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552406133101-g6infrhqepr0jgecsqj03j3q4b3jvaqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
