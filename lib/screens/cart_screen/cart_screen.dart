@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/screens/cart_screen/widgets/cart_product.dart';
 import 'package:sneakers/services/database.dart';
+import 'package:sneakers/widgets/circular_reveal.dart';
 import 'package:sneakers/widgets/order_dialog.dart';
 
 import 'controllers/cart_controller.dart';
@@ -92,7 +93,7 @@ class CartScreen extends StatelessWidget {
                         SizedBox(
                           height: 12,
                         ),
-                        CupertinoButton(
+                        /*CupertinoButton(
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 24),
                             width: context.mediaQuery.size.width,
@@ -122,7 +123,8 @@ class CartScreen extends StatelessWidget {
                               Get.dialog(OrderDialog());
                             }
                           },
-                        ),
+                        ),*/
+                        CircularReveal(),
                         SizedBox(
                           height: 24,
                         ),

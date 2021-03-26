@@ -86,10 +86,8 @@ class _ProgressButtonState extends State<ProgressButton>
     if (state == 3) {
       await Future.delayed(Duration(milliseconds: 375));
       reverse = true;
-      controller
-          .reverse()
-          .then((value) => reverse = false)
-          .then((value) => state = 0);
+      controller.reverse().then((value) => reverse = false);
+      state = 0;
     }
   }
 
@@ -97,12 +95,14 @@ class _ProgressButtonState extends State<ProgressButton>
     if (state == 0) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 22),
-        child: Text(
-          widget.text,
-          style: context.textTheme.bodyText1.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
+        child: FittedBox(
+          child: Text(
+            widget.text,
+            style: context.textTheme.bodyText1.copyWith(
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
           ),
         ),
       );

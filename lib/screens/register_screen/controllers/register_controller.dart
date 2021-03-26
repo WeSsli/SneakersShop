@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sneakers/controllers/auth_controller.dart';
 
@@ -10,13 +11,12 @@ class SignupController extends GetxController {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
 
-  bool emailError = false;
-  bool passwordError = false;
-  bool nameError = false;
-  bool surnameError = false;
-  bool addressError = false;
-  bool cityError = false;
-
+  bool emailError = true;
+  bool passwordError = true;
+  bool nameError = true;
+  bool surnameError = true;
+  bool addressError = true;
+  bool cityError = true;
 
 //TODO poprawic walidacje
   @override
@@ -64,31 +64,62 @@ class SignupController extends GetxController {
       } else
         cityError = false;
     });
-
-    
   }
 
-  void signUp() async {
+  Future<bool> signUp() async {
     if (!emailError &&
         !passwordError &&
         !nameError &&
         !surnameError &&
         !addressError &&
         !cityError) {
-      await Get.find<AuthController>().createUser(
+      return await Get.find<AuthController>()
+          .createUser(
         nameController.text,
         emailController.text,
         passwordController.text,
         surnameController.text,
         addressController.text,
         cityController.text,
+      )
+          .then((b) {
+        emailController.clear();
+        passwordController.clear();
+        nameController.clear();
+        surnameController.clear();
+        addressController.clear();
+        cityController.clear();
+        return b;
+      });
+    } else {
+      Get.rawSnackbar(
+        backgroundColor: Colors.red,
+        message: "Nie udało się zarejestrować",
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(24),
+        borderRadius: 12,
       );
-      emailController.clear();
-      passwordController.clear();
-      nameController.clear();
-      surnameController.clear();
-      addressController.clear();
-      cityController.clear();
+      return false;
     }
   }
+
+  /*Future<bool> signIn() async {
+    if (!emailError && !passwordError) {
+      return await c
+          .logIn(emailController.text, passwordController.text)
+          .then((b) {
+        passwordController.clear();
+        return b;
+      });
+    } else {
+      Get.rawSnackbar(
+        backgroundColor: Colors.red,
+        message: "Nie udało się zalogować",
+        snackPosition: SnackPosition.TOP,
+        margin: EdgeInsets.all(24),
+        borderRadius: 12,
+      );
+      return false;
+    }
+  }*/
 }

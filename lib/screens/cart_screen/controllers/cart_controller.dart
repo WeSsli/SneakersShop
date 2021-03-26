@@ -51,7 +51,6 @@ class CartController extends GetxController {
           message: "Proszę wybrać rozmiar",
           snackPosition: SnackPosition.BOTTOM);
     }
-    
 
     /*
     for (ProductCartModel p in cartList.value) {
@@ -75,5 +74,11 @@ class CartController extends GetxController {
     sumPrice.value += (cartList.value[index].quantity - initQuantity) *
         int.parse(cartList.value[index].product.price);
     cartList.refresh();
+  }
+
+  Future<void> clearCart() async {
+    cartList.value.clear();
+    cartList.refresh();
+    sumPrice.value = 0;
   }
 }

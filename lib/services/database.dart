@@ -82,9 +82,6 @@ class Database {
           "customer": userController.user.id,
           "price": cartController.sumPrice.value,
         });
-        cartController.cartList.value.clear();
-        cartController.cartList.refresh();
-        cartController.sumPrice.value = 0;
         return true;
       } else {
         throw ("Lista jest pusta");

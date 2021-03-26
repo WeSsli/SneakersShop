@@ -27,7 +27,7 @@ class AuthController extends GetxController {
     });
   }
 
-  Future<void> createUser(String name, String email, String password,
+  Future<bool> createUser(String name, String email, String password,
       String surname, String address, String city) async {
     try {
       //Create user in auth
@@ -51,12 +51,14 @@ class AuthController extends GetxController {
       } else {
         throw ("Nie dodano użytkownika do bazy");
       }
+      return true;
     } catch (e) {
       Get.rawSnackbar(
           backgroundColor: Colors.red,
           title: "Nie udało się utworzyć konta",
           message: e.message,
           snackPosition: SnackPosition.BOTTOM);
+          return false;
     }
   }
 

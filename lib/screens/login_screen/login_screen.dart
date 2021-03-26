@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sneakers/widgets/progress_button.dart';
+import 'package:sneakers/widgets/login_progress_button.dart';
 import 'package:sneakers/widgets/text_input.dart';
 
 import 'controllers/log_in_controller.dart';

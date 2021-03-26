@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sneakers/widgets/register_progress_button.dart';
 import 'package:sneakers/widgets/text_input.dart';
 
 import 'controllers/register_controller.dart';
@@ -78,7 +79,7 @@ class RegisterScreen extends GetView<SignupController> {
                 SizedBox(
                   height: 48,
                 ),
-                _signupButton(context),
+                RegisterProgressButton(text: "Zarejestruj"),
                 SizedBox(
                   height: 28,
                 ),
@@ -91,35 +92,6 @@ class RegisterScreen extends GetView<SignupController> {
     );
   }
 
-  Widget _signupButton(BuildContext context) => CupertinoButton(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          width: context.mediaQuery.size.width,
-          decoration: BoxDecoration(
-            color: context.theme.primaryColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 22),
-            child: Center(
-              child: Text(
-                "Zarejestruj",
-                style: context.textTheme.bodyText1.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-        minSize: 0,
-        color: Colors.transparent,
-        padding: EdgeInsets.zero,
-        onPressed: () {
-          controller.signUp();
-        },
-      );
 
   Widget _footer(BuildContext context) => Container(
         margin: EdgeInsets.only(bottom: 28),
