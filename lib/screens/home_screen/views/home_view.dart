@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     super.build(context);
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Container(
@@ -48,30 +48,32 @@ class _HomeViewState extends State<HomeView>
               ),
             ),
             SizedBox(height: 24),
-            Expanded(
-              child: Obx(
-                () => SmartRefresher(
-                  controller: refreshController,
-                  enablePullDown: true,
-                  onRefresh: () async {
-                    productController.products = await Database().getProducts();
-                    productController.filterProducts();
-                    refreshController.refreshCompleted();
-                  },
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount:
-                          productController.filteredProducts.value.length,
-                      itemBuilder: (context, index) {
-                        return ProductCard(
-                            product: productController
-                                .filteredProducts.value[index]);
-                      }),
-                ),
-              ),
-            ),
+            _productsList(context),
             SizedBox(height: 36),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _productsList(BuildContext context) {
+    return Expanded(
+      child: Obx(
+        () => SmartRefresher(
+          controller: refreshController,
+          enablePullDown: true,
+          onRefresh: () async {
+            productController.products = await Database().getProducts();
+            productController.filterProducts();
+            refreshController.refreshCompleted();
+          },
+          child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: productController.filteredProducts.value.length,
+              itemBuilder: (context, index) {
+                return ProductCard(
+                    product: productController.filteredProducts.value[index]);
+              }),
         ),
       ),
     );
