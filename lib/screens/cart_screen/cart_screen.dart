@@ -57,97 +57,72 @@ class CartScreen extends StatelessWidget {
           Expanded(
             child: Obx(
               () => cartController.cartList.value.isNotEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Obx(
-                            () => ListView.builder(
-                                padding: EdgeInsets.zero,
-                                itemCount: cartController.cartList.value.length,
-                                itemBuilder: (context, index) {
-                                  return CartProduct(
-                                    cartProduct:
-                                        cartController.cartList.value[index],
-                                    index: index,
-                                  );
-                                }),
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: Obx(
-                            () => Text(
-                              "Łączna kwota: ${cartController.sumPrice.value} zł",
-                              style: context.textTheme.bodyText1.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        /*CupertinoButton(
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 24),
-                            width: context.mediaQuery.size.width,
-                            decoration: BoxDecoration(
-                              color: context.theme.primaryColor,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 22),
-                              child: Center(
-                                child: Text(
-                                  "Złóż zamówienie",
-                                  style: context.textTheme.bodyText1.copyWith(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          minSize: 0,
-                          color: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          onPressed: () async {
-                            if (await Database().order()) {
-                              Get.dialog(OrderDialog());
-                            }
-                          },
-                        ),*/
-                        CircularReveal(),
-                        SizedBox(
-                          height: 24,
-                        ),
-                      ],
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            child:
-                                SvgPicture.asset('assets/images/EmptyCart.svg'),
-                            height: 250,
-                          ),
-                          SizedBox(
-                            height: 48,
-                          ),
-                          Text(
-                            "Koszyk jest pusty",
-                            style: context.textTheme.bodyText1.copyWith(
-                              fontSize: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ? _cartList(context)
+                  : _emptyCart(context),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _cartList(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Obx(
+            () => ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: cartController.cartList.value.length,
+                itemBuilder: (context, index) {
+                  return CartProduct(
+                    cartProduct: cartController.cartList.value[index],
+                    index: index,
+                  );
+                }),
+          ),
+        ),
+        SizedBox(height: 24),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Obx(
+            () => Text(
+              "Łączna kwota: ${cartController.sumPrice.value} zł",
+              style: context.textTheme.bodyText1.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        CircularReveal(),
+        SizedBox(
+          height: 24,
+        ),
+      ],
+    );
+  }
+
+  Widget _emptyCart(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
+        children: [
+          SizedBox(
+            child: SvgPicture.asset('assets/images/EmptyCart.svg'),
+            height: 250,
+          ),
+          SizedBox(
+            height: 48,
+          ),
+          Text(
+            "Koszyk jest pusty",
+            style: context.textTheme.bodyText1.copyWith(
+              fontSize: 30,
             ),
           ),
         ],

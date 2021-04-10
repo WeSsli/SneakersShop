@@ -15,8 +15,7 @@ class CartProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 24.0, right: 24, top: 20, bottom: 8),
+      padding: const EdgeInsets.only(left: 24.0, right: 24, top: 20, bottom: 8),
       child: Stack(
         overflow: Overflow.visible,
         children: [
@@ -36,165 +35,181 @@ class CartProduct extends StatelessWidget {
                 margin: EdgeInsets.only(right: 24),
                 child: Row(
                   children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: context.theme.cardColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Transform.rotate(
-                        angle: 6.0,
-                        child: Container(
-                          margin: EdgeInsets.only(right: 10),
-                          child: Image(
-                            image: CachedNetworkImageProvider(
-                              cartProduct.product.images[0],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _image(context),
                     SizedBox(
                       width: 16,
                     ),
-                    Container(
-                      child: Expanded(
-                        child: Container(
-                          margin:
-                              EdgeInsets.only(top: 10, right: 30, bottom: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                cartProduct.product.name,
-                                style: context.textTheme.bodyText1.copyWith(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 6,
-                              ),
-                              Text(
-                                "Rozmiar: ${cartProduct.size}",
-                                style: context.textTheme.bodyText1.copyWith(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                "${cartProduct.product.price} zł",
-                                style: context.textTheme.bodyText1.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    CupertinoButton(
-                      onPressed: () {
-                        Get.bottomSheet(
-                          Container(
-                            height: 250,
-                            width: context.mediaQuery.size.width,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(28),
-                                    topLeft: Radius.circular(28))),
-                            child: Column(
-                              children: [
-                                SizedBox(height: 24),
-                                Text(
-                                  "Ilość: ",
-                                  style: context.textTheme.bodyText1.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                Container(
-                                  height: 200,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 150.0),
-                                  child: CupertinoPicker(
-                                      itemExtent: 50,
-                                      onSelectedItemChanged: (int i) {
-                                        cartController.addPickerPrice(i, index);
-                                      },
-                                      scrollController:
-                                          FixedExtentScrollController(
-                                        initialItem: cartController.cartList
-                                                .value[index].quantity -
-                                            1,
-                                      ),
-                                      children: List.generate(
-                                        20,
-                                        (index) => Center(
-                                          child: Text(
-                                            (index + 1).toString(),
-                                          ),
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      padding: EdgeInsets.zero,
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(64),
-                          color: context.theme.primaryColor,
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            child: Obx(
-                              () => Text(
-                                "x ${cartController.cartList.value[index].quantity}",
-                                style: context.textTheme.bodyText1.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _informations(context),
+                    _quantityButton(context),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            left: 365,
-            bottom: 95,
-            child: PhysicalModel(
-              borderRadius: BorderRadius.circular(64),
-              shadowColor: Colors.black.withOpacity(0.5),
-              color: Colors.white,
-              elevation: 2,
-              child: CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Get.find<CartController>().removeFromCart(index);
-                },
-                child: Icon(
-                  Icons.clear,
-                  color: Colors.black,
+          _removeButton(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _image(BuildContext context) {
+    return Container(
+      height: 120,
+      width: 120,
+      decoration: BoxDecoration(
+        color: context.theme.cardColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Transform.rotate(
+        angle: 6.0,
+        child: Container(
+          margin: EdgeInsets.only(right: 10),
+          child: Image(
+            image: CachedNetworkImageProvider(
+              cartProduct.product.images[0],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _informations(BuildContext context) {
+    return Container(
+      child: Expanded(
+        child: Container(
+          margin: EdgeInsets.only(top: 10, right: 30, bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                cartProduct.product.name,
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              SizedBox(
+                height: 6,
+              ),
+              Text(
+                "Rozmiar: ${cartProduct.size}",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "${cartProduct.product.price} zł",
+                style: context.textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _quantityButton(BuildContext context) {
+    return CupertinoButton(
+      onPressed: () {
+        Get.bottomSheet(
+          Container(
+            height: 250,
+            width: context.mediaQuery.size.width,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(28),
+                    topLeft: Radius.circular(28))),
+            child: Column(
+              children: [
+                SizedBox(height: 24),
+                Text(
+                  "Ilość: ",
+                  style: context.textTheme.bodyText1.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 150.0),
+                  child: _quantityPicker(context),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      padding: EdgeInsets.zero,
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(64),
+          color: context.theme.primaryColor,
+        ),
+        child: Center(
+          child: FittedBox(
+            child: Obx(
+              () => Text(
+                "x ${cartController.cartList.value[index].quantity}",
+                style: context.textTheme.bodyText1.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18,
                 ),
               ),
             ),
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget _removeButton(BuildContext context) {
+    return Positioned(
+      left: 365,
+      bottom: 95,
+      child: PhysicalModel(
+        borderRadius: BorderRadius.circular(64),
+        shadowColor: Colors.black.withOpacity(0.5),
+        color: Colors.white,
+        elevation: 2,
+        child: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            Get.find<CartController>().removeFromCart(index);
+          },
+          child: Icon(
+            Icons.clear,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _quantityPicker(BuildContext context) {
+    return CupertinoPicker(
+      itemExtent: 50,
+      onSelectedItemChanged: (int i) {
+        cartController.addPickerPrice(i, index);
+      },
+      scrollController: FixedExtentScrollController(
+        initialItem: cartController.cartList.value[index].quantity - 1,
+      ),
+      children: List.generate(
+        20,
+        (index) => Center(
+          child: Text(
+            (index + 1).toString(),
+          ),
+        ),
       ),
     );
   }
